@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { db } from "../firebase/Firebase";
+import { Header } from './Header';
 
 import { AuthContext } from '../auth/AuthProvider';
 
@@ -25,6 +26,21 @@ function Home () {
     getIncomeData();
     getExpenseData();
   }, [date]);
+
+  //for Header
+  const setPrevMonth = () => {
+    const year = date.getFullYear();
+    const month = date.getMonth()-1;
+    const day = date.getDate();
+    setDate(new Date(year, month, day));
+  }
+
+  const setNextMonth = () => {
+    const year = date.getFullYear();
+    const month = date.getMonth()+1;
+    const day = date.getDate();
+    setDate(new Date(year, month, day));
+  }
 
   //Firestoreから収入データを取ってきて、アプリ上で表示
   const getIncomeData = () => {
@@ -80,6 +96,17 @@ function Home () {
     });
   }
 
+  return (
+    <div className="container">
+      <div className="top">
+        <Header 
+          date={date}
+          setPrevMonth={setPrevMonth}
+          setNextMonth={setNextMonth}
+        />
+      </div>
+    </div>
+  );
 };
 
 export default Home;
