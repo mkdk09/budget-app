@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { db } from "../firebase/Firebase";
 import { Header } from './Header';
+import { AddItem } from './AddItem';
 
 import { AuthContext } from '../auth/AuthProvider';
 
@@ -41,6 +42,21 @@ function Home () {
     const day = date.getDate();
     setDate(new Date(year, month, day));
   }
+
+  //get first date of the month
+  const startOfMonth = (date) => {
+    return new Date(date.getFullYear(), date.getMonth(), 1);
+  }
+
+  //get last date of this month
+  const endOfMonth = (date) => {
+    return new Date(date.getFullYear(), date.getMonth() + 1, 0);
+  }
+
+  //operate add form and income/expense list
+  const selectedMonth = date.getMonth() + 1;
+  const today = new Date();
+  const thisMonth = today.getMonth() + 1;
 
   //Firestoreから収入データを取ってきて、アプリ上で表示
   const getIncomeData = () => {
@@ -105,6 +121,18 @@ function Home () {
           setNextMonth={setNextMonth}
         />
       </div>
+      <AddItem
+          addIncome={addIncome}
+          addExpense={addExpense}
+          inputText={inputText}
+          setInputText={setInputText}
+          inputAmount={inputAmount}
+          setInputAmount={setInputAmount}
+          type={type}
+          setType={setType}
+          selectedMonth={selectedMonth}
+          thisMonth={thisMonth}
+        />
     </div>
   );
 };
