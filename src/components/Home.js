@@ -3,6 +3,9 @@ import { db } from "../firebase/Firebase";
 import { Header } from './Header';
 import { AddItem } from './AddItem';
 import { ItemsList } from './ItemsList';
+import { IncomeExpense } from './IncomeExpense';
+import { totalCalc } from './TotalIncome';
+import { Balance } from './Balance';
 
 import { AuthContext } from '../auth/AuthProvider';
 
@@ -120,6 +123,9 @@ function Home () {
   const deleteExpense = (docId) => {
     db.collection('expenseItems').doc(docId).delete()
   }
+  
+  // calculate % and show total
+  const incomeTotal = totalCalc(incomeItems);
 
   return (
     <div className="container">
@@ -128,6 +134,14 @@ function Home () {
           date={date}
           setPrevMonth={setPrevMonth}
           setNextMonth={setNextMonth}
+        />
+        <Balance 
+          incomeTotal={incomeTotal}
+          expenseItems={expenseItems}
+        />
+        <IncomeExpense 
+          incomeTotal={incomeTotal}
+          expenseItems={expenseItems}
         />
       </div>
       <AddItem
