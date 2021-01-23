@@ -23,7 +23,7 @@ export const AddItem = ({ addItem, addExpense, inputText, setInputText, inputAmo
     setType(e.target.value);
   }
 
-  const inputHandler = (e) => {
+  const inputTextHandler = (e) => {
     setInputText(e.target.value);
   }
 

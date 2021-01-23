@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { db } from "../firebase/Firebase";
 import { Header } from './Header';
 import { AddItem } from './AddItem';
+import { ItemsList } from './ItemsList';
 
 import { AuthContext } from '../auth/AuthProvider';
 
@@ -85,6 +86,10 @@ function Home () {
     });
   };
 
+  const deleteIncome = (docId) => {
+    db.collection('incomeItems').doc(docId).delete()
+  }
+
   //Firestoreから出費データを取ってきて、アプリ上で表示
   const getExpenseData = () => {
     const expenseData = db.collection('expenseItems')
@@ -112,6 +117,10 @@ function Home () {
     });
   }
 
+  const deleteExpense = (docId) => {
+    db.collection('expenseItems').doc(docId).delete()
+  }
+
   return (
     <div className="container">
       <div className="top">
@@ -130,6 +139,15 @@ function Home () {
           setInputAmount={setInputAmount}
           type={type}
           setType={setType}
+          selectedMonth={selectedMonth}
+          thisMonth={thisMonth}
+        />
+        <ItemsList 
+          deleteIncome={deleteIncome}
+          deleteExpense={deleteExpense}
+          incomeTotal={incomeTotal}
+          incomeItems={incomeItems} 
+          expenseItems={expenseItems}
           selectedMonth={selectedMonth}
           thisMonth={thisMonth}
         />
