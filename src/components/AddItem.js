@@ -17,7 +17,7 @@ const AddButton = styled(Button)({
   },
 });
 
-export const AddItem = ({ addItem, addExpense, inputText, setInputText, inputAmount, setInputAmount, type, setType, selectedMonth, thisMonth}) => {
+export const AddItem = ({ addIncome, addExpense, inputText, setInputText, inputAmount, setInputAmount, type, setType, selectedMonth, thisMonth}) => {
 
   const typeHandler = (e) => {
     setType(e.target.value);
